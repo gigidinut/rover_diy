@@ -19,7 +19,7 @@ def stop_movement():
     BIN1.value(0)
     BIN2.value(0)
 
-def stop_stop_movement():
+def button_stop_movement():
     #this is called when the a button stops being pressed/clicked and thus I don't want it to print anything
     AIN1.value(0)
     AIN2.value(0)
@@ -66,7 +66,7 @@ def robot_movement(writing,state):
         left = request.find('/?left')
         right = request.find('/?right')
         stop = request.find('/?stop')
-        stop_stop = request.find('/?stop_stop')
+        buttonstop = request.find('/?buttonstop')
         stop_rec = request.find('/?stop_rec')
         disable = request.find('/?disable')
         #check if log is being written (0/1) and the state of the rover (enabled/disabled)
@@ -98,9 +98,10 @@ def robot_movement(writing,state):
           if writing == 1:
               f.write(str((time.ticks_ms()-the_time)/1000))
               f.write(',Stop\n')
-        if stop_stop == 6:
-          stop_stop_movement()
-          #choosing not to write this to the log as it is called when the button stops being pressed so not really a new action
+        if buttonstop == 6:
+            print('button stop')
+            button_stop_movement()
+            #choosing not to write this to the log as it is called when the button stops being pressed so not really a new action
         if stop_rec == 6:
           if writing == 1:
               f.close()
@@ -179,7 +180,6 @@ while True:
         writing = robot_movement(writing,state)
         print('robot_movement returned: ' + str(writing))
         state = 'DISABLED'
-    print('State sent to web page is: ' + state)
     #call and update web UI
     response = web_page(state)
     #send data to socket

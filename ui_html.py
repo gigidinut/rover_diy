@@ -1,6 +1,5 @@
 def web_page(state):
     rover_state = state
-    print('State inside the web page: ' + rover_state)
     html = """<html>
       <head>
         <title>ESP32 Rover</title>
@@ -73,9 +72,9 @@ def web_page(state):
         <h3>UI v1.5</h3>
         <p>Rover: <strong>""" + rover_state + """</strong></p>
         <table>
-          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('forward');" ontouchstart="toggleCheckbox('forward');" onmouseup="toggleCheckbox('stop_stop');" ontouchend="toggleCheckbox('stop_stop');"><div class="triangle-up"></div></button></td></tr>
-          <tr><td align="center"><button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('stop_stop');" ontouchend="toggleCheckbox('stop_stop');"><div class="triangle-left"></div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('stop');" ontouchstart="toggleCheckbox('stop');"><div class="square"></div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('right');" ontouchstart="toggleCheckbox('right');" onmouseup="toggleCheckbox('stop_stop');" ontouchend="toggleCheckbox('stop_stop');"><div class="triangle-right"></div></button></td></tr>
-          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('stop_stop');" ontouchend="toggleCheckbox('stop_stop');"><div class="triangle-down"></div></button></td></tr>                   
+          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('forward');" ontouchstart="toggleCheckbox('forward');" onmouseup="toggleCheckbox('buttonstop');" ontouchend="toggleCheckbox('buttonstop');"><div class="triangle-up"></div></button></td></tr>
+          <tr><td align="center"><button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('buttonstop');" ontouchend="toggleCheckbox('buttonstop');"><div class="triangle-left"></div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('stop');" ontouchstart="toggleCheckbox('stop');"><div class="square"></div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('right');" ontouchstart="toggleCheckbox('right');" onmouseup="toggleCheckbox('buttonstop');" ontouchend="toggleCheckbox('buttonstop');"><div class="triangle-right"></div></button></td></tr>
+          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('buttonstop');" ontouchend="toggleCheckbox('buttonstop');"><div class="triangle-down"></div></button></td></tr>                   
           <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('enable');window.location.reload();" ontouchstart="toggleCheckbox('enable');window.location.reload();";">ENABLE</div></button></td></tr>
           <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('disable');window.location.reload();" ontouchstart="toggleCheckbox('disable')window.location.reload();;";">DISABLE</div></button></td></tr>
           <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('stop_rec');" ontouchstart="toggleCheckbox('stop_rec');";">STOP REC</div></button></td></tr>
