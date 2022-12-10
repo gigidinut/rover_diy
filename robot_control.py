@@ -10,7 +10,8 @@ AIN1 = Pin(22, Pin.OUT)
 AIN2 = Pin(23, Pin.OUT)
 BIN1 = Pin(21, Pin.OUT)
 BIN2 = Pin(19, Pin.OUT)
-    
+
+# define rover movement functions
 def stop_movement():
     print('Stop')
     AIN1.value(0)
@@ -48,9 +49,11 @@ def turn_right():
 
 def robot_movement(writing,state):
     while True:
+        #create connection to the server
         conn, addr = s.accept()
+        #receive up to 1024 bytes
         request = str(conn.recv(1024))
-        #print('Content = %s' % request)
+        #assign url substrings to each command
         forward = request.find('/?forward')
         backward = request.find('/?backward')
         left = request.find('/?left')
@@ -58,9 +61,10 @@ def robot_movement(writing,state):
         stop = request.find('/?stop')
         stop_rec = request.find('/?stop_rec')
         disable = request.find('/?disable')
-        
+        #check if log is being written (0/1) and the state of the rover (enabled/disabled)
         print('Writing: '+str(writing)+'  State: '+state)
-        
+        #check url for the specific commands of each button
+        #execute the associated move and record it in the log is writing is enabled
         if forward == 6:
           move_forward()
           if writing == 1:
@@ -116,37 +120,45 @@ def robot_movement(writing,state):
               conn.close()
               return writing
               break
-              
-        print('State sent to web page in loop: ' + state)  
+        
+        #call and update web UI
         response = web_page(state)
+        #send data to socket
         conn.send('HTTP/1.1 200 OK\n')
         conn.send('Content-Type: text/html\n')
         conn.send('Connection: close\n\n')
         conn.sendall(response)
         conn.close()
 
-#web_page()
-
+#create new socket and listen for incoming connections on port 80
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('', 80))
+#queue up to 5 connections before refusing new ones
 s.listen(5)
 
+#open the log file by default
+#the log records the time in seconds since the program started running and the action being performed - from the button press
 f = open('movementlog.txt', 'w')
 the_time = time.ticks_ms()
-f.write('Time(ms),Action')
-f.write('\n')
+f.write('Time(ms),Action\n')
+#default state is disabled and log not recording
 writing = 0
 state = 'DISABLED'
+
+# MAIN LOOP
 while True:
+    #create connection to the server and print the details
     conn, addr = s.accept()
     print('Got a connection from %s' % str(addr))
+    #receive up to 1024 bytes
     request = str(conn.recv(1024))
     print('Content = %s' % request)
+    #assign url substrings to each command
     enable = request.find('/?enable')
     start_rec = request.find('/?start_rec')
     
     print('STATE is: '+state)
-    
+    #check url for the specific commands of each button
     if start_rec == 6:
         writing = 1
         print ('Data recording enabled')
@@ -157,7 +169,9 @@ while True:
         print('robot_movement returned: ' + str(writing))
         state = 'DISABLED'
     print('State sent to web page is: ' + state)
+    #call and update web UI
     response = web_page(state)
+    #send data to socket
     conn.send('HTTP/1.1 200 OK\n')
     conn.send('Content-Type: text/html\n')
     conn.send('Connection: close\n\n')
