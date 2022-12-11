@@ -114,7 +114,7 @@ def robot_movement(writing,state):
               writing = 0
               print('Disabling movement')
               state = 'DISABLED'
-              response = web_page(state)
+              response = web_page(state,writing)
               conn.send('HTTP/1.1 200 OK\n')
               conn.send('Content-Type: text/html\n')
               conn.send('Connection: close\n\n')
@@ -124,7 +124,7 @@ def robot_movement(writing,state):
               break
           else:
               print('Disabling movement')
-              response = web_page(state)
+              response = web_page(state,writing)
               conn.send('HTTP/1.1 200 OK\n')
               conn.send('Content-Type: text/html\n')
               conn.send('Connection: close\n\n')
@@ -134,7 +134,7 @@ def robot_movement(writing,state):
               break
         
         #call and update web UI
-        response = web_page(state)
+        response = web_page(state,writing)
         #send data to socket
         conn.send('HTTP/1.1 200 OK\n')
         conn.send('Content-Type: text/html\n')
@@ -181,7 +181,7 @@ while True:
         print('robot_movement returned: ' + str(writing))
         state = 'DISABLED'
     #call and update web UI
-    response = web_page(state)
+    response = web_page(state,writing)
     #send data to socket
     conn.send('HTTP/1.1 200 OK\n')
     conn.send('Content-Type: text/html\n')
