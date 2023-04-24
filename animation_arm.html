@@ -136,10 +136,13 @@
 	  
 	  function updateWristJointPosition() {
 		const wristJoint = document.getElementById('wrist_joint');
-		
+		const forearm = document.getElementById('forearm');
+		const styles = window.getComputedStyle(forearm);
 		var a = 180 - slider1.value;
 		var o = - slider2.value-180;
-		var d = 100;
+		var d = styles.getPropertyValue('width');
+		var d = parseInt(d,10);
+		console.log(d);
 		var w = a + o/2 - 45;
 		var l = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180);
 		var m = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.cos(w * Math.PI / 180);
