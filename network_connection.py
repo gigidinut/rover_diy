@@ -12,7 +12,10 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-ssid = '*************'
+# set LED with pin for confirming there is a connection active
+LED = Pin(16, Pin.OUT)
+LED.value(0)
+ssid = '**************'
 password = '**************'
 
 station = network.WLAN(network.STA_IF)
@@ -24,4 +27,7 @@ while station.isconnected() == False:
   pass
 
 print('Connection successful')
+
+LED.value(1)
+
 print(station.ifconfig())
