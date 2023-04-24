@@ -135,19 +135,19 @@
 	  }
 	  
 	  function updateWristJointPosition() {
-		const forearm = document.getElementById('forearm');
 		const wristJoint = document.getElementById('wrist_joint');
 		
-		const styles = window.getComputedStyle(forearm);
-		const top = parseInt(styles.getPropertyValue('top'));
-		const left = parseInt(styles.getPropertyValue('left'));
-		
-		console.log("The value of top is: ", top);
-		console.log("The value of left is: ", left);
+		var a = 180 - slider1.value;
+		var o = - slider2.value-180;
+		var d = 100;
+		var w = a + o/2 - 45;
+		var l = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180);
+		var m = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.cos(w * Math.PI / 180);
+		var h = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.sin(w * Math.PI / 180);
 		
 		// Set the position of the wrist joint relative to the center of the forearm
-		wristJoint.style.left = `calc(${left}px + 85px)`;
-		wristJoint.style.top = `calc(${top}px - 5px)`;
+		wristJoint.style.left = `calc(50% - ${m}px - 15px)`;
+		wristJoint.style.top = `calc(50% - ${h}px - 5px)`;
 	  }
 
 
