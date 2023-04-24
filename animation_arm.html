@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>shoulder Joint Example</title>
+    <title>Animated arm</title>
     <style>
-      /* Define the styles for the shoulder joint and the upper_arm */
+      /* Define the styles for the arm elements */
       #shoulder_joint {
         width: 30px;
         height: 30px;
@@ -52,6 +52,25 @@
         top: 50%;
         left: calc(50% + 100px);
         transform-origin: 0% 50%;
+		}
+		
+	  #claw {
+        width: 0px;
+        height: 0px;
+        border-right: 50px solid transparent;
+        border-top: 20px solid green;
+        border-left: 50px solid green;
+        border-bottom: 20px solid green;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 30px;
+		background-color: transparent;
+        position: absolute;
+        top: calc(50% - 10px);
+        left: calc(50% + 200px);
+        transform-origin: 0% 50%;
+		}
       }
 	  
     </style>
@@ -59,28 +78,35 @@
   <body>
     <div>
         <label for="input1">Shoulder angle:</label>
-        <input type="number" id="input1" name="input1" min="0" max="180" value="0" oninput="updateslider1('slider1', 'input1')" id="slider1">
+        <input type="number" id="input1" name="input1" min="0" max="180" value="0" oninput="updateslider('slider1', 'input1')" id="slider1">
         <input type="range" id="slider1" name="slider1" min="0" max="180" value="0" oninput="updateInput('input1', 'slider1')" onmouseup="sendInput('input1')" ontouchend="sendInput('input1')">
         <button onclick="sendInput('input1')">Send</button>
     </div>
 	<div>
         <label for="input2">Elbow angle:</label>
-        <input type="number" id="input2" name="input2" min="0" max="180" value="90" oninput="updateslider1('slider2', 'input2')" id="slider2">
+        <input type="number" id="input2" name="input2" min="0" max="180" value="90" oninput="updateslider('slider2', 'input2')" id="slider2">
         <input type="range" id="slider2" name="slider2" min="0" max="180" value="90" oninput="updateInput('input2', 'slider2')" onmouseup="sendInput('input2')" ontouchend="sendInput('input2')">
         <button onclick="sendInput('input2')">Send</button>
     </div>
 	<div>
         <label for="input3">Wrist angle:</label>
-        <input type="number" id="input3" name="input3" min="0" max="180" value="90" oninput="updateslider1('slider3', 'input3')" id="slider3">
+        <input type="number" id="input3" name="input3" min="0" max="180" value="90" oninput="updateslider('slider3', 'input3')" id="slider3">
         <input type="range" id="slider3" name="slider3" min="0" max="180" value="90" oninput="updateInput('input3', 'slider3')" onmouseup="sendInput('input3')" ontouchend="sendInput('input3')">
         <button onclick="sendInput('input3')">Send</button>
     </div>
+	<div>
+        <label for="input4">Claw:</label>
+        <input type="number" id="input4" name="input4" min="0" max="180" value="90" oninput="updateslider('slider4', 'input4')" id="slider4">
+        <input type="range" id="slider4" name="slider4" min="0" max="180" value="90" oninput="updateInput('input4', 'slider4')" onmouseup="sendInput('input4')" ontouchend="sendInput('input4')">
+        <button onclick="sendInput('input4')">Send</button>
+    </div>
 	<div id="upper_arm"></div>
 	<div id="forearm"></div>
+	<div id="claw"></div>
 	<div id="shoulder_joint"></div>
 	<div id="elbow_joint"></div>
 	<div id="wrist_joint"></div>
-
+	
     <script>
       const shoulder_joint = document.getElementById('shoulder_joint');
       const upper_arm = document.getElementById('upper_arm');
@@ -89,6 +115,7 @@
 	  const elbow_joint = document.getElementById('elbow_joint');
 	  const wrist_joint = document.getElementById('wrist_joint');
 	  const forearm = document.getElementById('forearm');
+	  const claw = document.getElementById('claw');
 
       function rotateupper_arm(angle) {
         upper_arm.style.transform = `rotate(${-angle}deg)`;
@@ -96,12 +123,46 @@
 		updateForearmPosition(angle);
 		forearm.style.transform = `rotate(${90-slider2.value-angle}deg)`;
 		updateWristJointPosition();
+		updateClawPosition();
+		rotateclaw(angle);
       }
 	  
 	  function rotateforearm(angle) {
         forearm.style.transform = `rotate(${90-slider1.value-angle}deg)`;
-		updateWristJointPosition() 
+		updateWristJointPosition();
+		updateClawPosition();
+		rotateclaw();
       }
+	  
+	  function rotateclaw(angle) {
+		claw.style.transform = `rotate(${180 - slider2.value - slider1.value-slider3.value}deg)`;
+	  }
+	  
+	  function closeopenclaw(angle) {
+		if (angle < 90) {
+			claw.style.backgroundColor = 'green';
+		} else {
+			claw.style.backgroundColor = 'transparent';
+		}
+	  }
+	  
+	  function updateClawPosition() {
+		const claw = document.getElementById('claw');
+		const forearm = document.getElementById('forearm');
+		const styles = window.getComputedStyle(forearm);
+		var a = 180 - slider1.value;
+		var o = - slider2.value-180;
+		var d = styles.getPropertyValue('width');
+		var d = parseInt(d,10);
+		var w = a + o/2 - 45;
+		var l = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180);
+		var m = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.cos(w * Math.PI / 180);
+		var h = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.sin(w * Math.PI / 180);
+		
+		// Set the position of the wrist joint relative to the center of the forearm
+		claw.style.left = `calc(50% - ${m}px)`;
+		claw.style.top = `calc(50% - ${h}px - 10px)`;
+	  }
 	  
 	  function updateInput(inputId, slider1Id) {
 		document.getElementById(inputId).value = document.getElementById(slider1Id).value;
@@ -142,7 +203,6 @@
 		var o = - slider2.value-180;
 		var d = styles.getPropertyValue('width');
 		var d = parseInt(d,10);
-		console.log(d);
 		var w = a + o/2 - 45;
 		var l = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180);
 		var m = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.cos(w * Math.PI / 180);
@@ -160,6 +220,14 @@
 	  
 	  slider2.addEventListener('input', () => {
         rotateforearm(slider2.value);
+      });
+	  
+	  slider3.addEventListener('input', () => {
+        rotateclaw();
+      });
+	  
+	  slider4.addEventListener('input', () => {
+        closeopenclaw(slider4.value);
       });
     </script>
   </body>
