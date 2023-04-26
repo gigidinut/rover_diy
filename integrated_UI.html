@@ -66,59 +66,59 @@
 		#shoulder_joint {
 			width: 30px;
 			height: 30px;
-			border-radius: 60%;
+			border-radius: 70%;
 			background-color: blue;
 			position: absolute;
-			top: calc(60% - 5px);
-			left: calc(60% - 15px);
+			top: calc(40% - 5px);
+			left: calc(70% - 185px);
 		}
 		
 		#elbow_joint {
 			width: 30px;
 			height: 30px;
-			border-radius: 60%;
+			border-radius: 70%;
 			background-color: blue;
 			position: absolute;
-			top: calc(60% - 5px);
-			left: calc(60% - 15px + 100px);
+			top: calc(40% - 5px);
+			left: calc(70% - 185px + 75px);
 		}
 		
 		#wrist_joint {
 			width: 30px;
 			height: 30px;
-			border-radius: 60%;
+			border-radius: 70%;
 			background-color: blue;
 			position: absolute;
-			top: calc(60% - 5px);
-			left: calc(60% - 15px + 200px);
+			top: calc(40% - 5px);
+			left: calc(70% - 185px + 150px);
 		}
 	
 		#upper_arm {
-			width: 100px;
+			width: 75px;
 			height: 20px;
 			background-color: red;
 			position: absolute;
-			top: 60%;
-			left: 60%;
-			transform-origin: 0% 60%;
+			top: 40%;
+			left: calc(70% - 170px);
+			transform-origin: 0% 50%;
 		}
 		
 		#forearm {
-			width: 100px;
+			width: 75px;
 			height: 20px;
 			background-color: red;
 			position: absolute;
-			top: 60%;
-			left: calc(60% + 100px);
-			transform-origin: 0% 60%;
+			top: 40%;
+			left: calc(70% - 170px + 75px);
+			transform-origin: 0% 50%;
 			}
 			
 		#claw {
 			width: 0px;
 			height: 0px;
-			border-right: 60px solid transparent;
+			border-right: 30px solid transparent;
 			border-top: 20px solid green;
-			border-left: 60px solid green;
+			border-left: 65px solid green;
 			border-bottom: 20px solid green;
 			border-top-left-radius: 20px;
 			border-top-right-radius: 30px;
@@ -126,9 +126,9 @@
 			border-bottom-right-radius: 30px;
 			background-color: transparent;
 			position: absolute;
-			top: calc(60% - 10px);
-			left: calc(60% + 200px);
-			transform-origin: 0% 60%;
+			top: calc(40% - 10px);
+			left: calc(70% - 170px + 150px);
+			transform-origin: 0% 50%;
 		}
 			
 		#ground {
@@ -136,21 +136,21 @@
 			height: 5px;
 			background-color: brown;
 			position: absolute;
-			top: calc(60% + 100px);
+			top: calc(40% + 66px);
 			left: 0%;
 		}
 			
 		#rover {
-			width: 400px;
-			height: 120px;
+			width: 210px;
+			height: 80px;
 			border-radius: 60px;
 			outline-color:black;
 			outline-width: 10px;
 			outline-style: dashed;
 			background-color: transparent;
 			position: absolute;
-			top: calc(60% - 25px);
-			left: calc(60% - 360px);
+			top: calc(40% - 25px);
+			left: calc(70% - 350px);
 		}
         </style>
       </head>
@@ -170,28 +170,40 @@
     <div id="page2" style="display: none">
         <h3>Rover v1.0 - UI v1.7</h3>
 		<h3>Arm Control</h3>
-    <div>
-        <label for="input1">Shoulder angle:</label>
-        <input type="number" id="input1" name="input1" min="0" max="180" value="0" oninput="updateslider('slider1', 'input1')" id="slider1">
-        <input type="range" id="slider1" name="slider1" min="0" max="180" value="0" oninput="updateInput('input1', 'slider1')" onmouseup="sendInput('input1')" ontouchend="sendInput('input1')">
-    </div>
-	<div>
-        <label for="input2">Elbow angle:</label>
-        <input type="number" id="input2" name="input2" min="0" max="180" value="90" oninput="updateslider('slider2', 'input2')" id="slider2">
-        <input type="range" id="slider2" name="slider2" min="0" max="180" value="90" oninput="updateInput('input2', 'slider2')" onmouseup="sendInput('input2')" ontouchend="sendInput('input2')">
-    </div>
-	<div>
-        <label for="input3">Wrist angle:</label>
-        <input type="number" id="input3" name="input3" min="0" max="180" value="90" oninput="updateslider('slider3', 'input3')" id="slider3">
-        <input type="range" id="slider3" name="slider3" min="0" max="180" value="90" oninput="updateInput('input3', 'slider3')" onmouseup="sendInput('input3')" ontouchend="sendInput('input3')">
-    </div>
-	<div>
-        <label for="input4">Claw:</label>
-        <input type="number" id="input4" name="input4" min="0" max="180" value="90" oninput="updateslider('slider4', 'input4')" id="slider4">
-        <input type="range" id="slider4" name="slider4" min="0" max="180" value="90" oninput="updateInput('input4', 'slider4')" onmouseup="sendInput('input4')" ontouchend="sendInput('input4')">
-    </div>
-        <button class="button" onclick="showPage('page1');toggleCheckbox('tracks_control');" ontouchstart="showPage('page1');toggleCheckbox('tracks_control');"> TRACKS CONTROL</button>
-	
+		
+		<table style="position: absolute; top:60%; margin-left: 7%">
+			<tr><td align="center">
+			<div>
+				<label for="input1">Shoulder angle:</label>
+				<input type="number" id="input1" name="input1" min="0" max="180" value="0" oninput="updateslider('slider1', 'input1')" id="slider1">
+				<input type="range" id="slider1" name="slider1" min="0" max="180" value="0" oninput="updateInput('input1', 'slider1')" onmouseup="sendInput('input1')" ontouchend="sendInput('input1')">
+			</div>
+			</td></tr>
+			<tr><td align="center">
+			<div>
+				<label for="input2">Elbow angle:</label>
+				<input type="number" id="input2" name="input2" min="0" max="180" value="90" oninput="updateslider('slider2', 'input2')" id="slider2">
+				<input type="range" id="slider2" name="slider2" min="0" max="180" value="90" oninput="updateInput('input2', 'slider2')" onmouseup="sendInput('input2')" ontouchend="sendInput('input2')">
+			</div>
+			</td></tr>
+			<tr><td align="center">
+			<div>
+				<label for="input3">Wrist angle:</label>
+				<input type="number" id="input3" name="input3" min="0" max="180" value="90" oninput="updateslider('slider3', 'input3')" id="slider3">
+				<input type="range" id="slider3" name="slider3" min="0" max="180" value="90" oninput="updateInput('input3', 'slider3')" onmouseup="sendInput('input3')" ontouchend="sendInput('input3')">
+			</div>
+			</td></tr>
+			<tr><td align="center">
+			<div>
+				<label for="input4">Claw:</label>
+				<input type="number" id="input4" name="input4" min="0" max="180" value="90" oninput="updateslider('slider4', 'input4')" id="slider4">
+				<input type="range" id="slider4" name="slider4" min="0" max="180" value="90" oninput="updateInput('input4', 'slider4')" onmouseup="sendInput('input4')" ontouchend="sendInput('input4')">
+			</div>
+			</td></tr>
+			<tr><td align="center">
+				<button class="button" onclick="showPage('page1');toggleCheckbox('tracks_control');" ontouchstart="showPage('page1');toggleCheckbox('tracks_control');"> TRACKS CONTROL</button>
+			</td></tr>
+		</table>
 	<div id="upper_arm"></div>
 	<div id="forearm"></div>
 	<div id="claw"></div>
@@ -289,8 +301,8 @@
 			var h = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.sin(w * Math.PI / 180);
 			
 			// Set the position of the wrist joint relative to the center of the forearm
-			claw.style.left = `calc(60% - ${m}px)`;
-			claw.style.top = `calc(60% - ${h}px - 10px)`;
+			claw.style.left = `calc(70% - ${m}px - 165px)`;
+			claw.style.top = `calc(40% - ${h}px - 10px)`;
 		}
 		
 		function updateForearmPosition(angle) {
@@ -299,8 +311,8 @@
 			const forearmX = upper_arm.offsetWidth * Math.cos(angle * Math.PI / 180);
 			const forearmY = upper_arm.offsetWidth * Math.sin(angle * Math.PI / 180) * -1;
 			
-			forearm.style.left = `calc(60% + ${forearmX}px)`;
-			forearm.style.top = `calc(60% + ${forearmY}px)`;
+			forearm.style.left = `calc(70% + ${forearmX}px - 170px)`;
+			forearm.style.top = `calc(40% + ${forearmY}px)`;
 		}
 		
 		function updateElbowJointPosition(angle) {
@@ -312,8 +324,8 @@
 			const circleY = upper_arm.offsetWidth * Math.sin(angle * Math.PI / 180) * -1;
 			
 			// Set the position of the circle relative to the center of the line
-			elbowJoint.style.left = `calc(60% + ${circleX}px - 15px)`;
-			elbowJoint.style.top = `calc(60% + ${circleY}px - 5px)`;
+			elbowJoint.style.left = `calc(70% + ${circleX}px - 185px)`;
+			elbowJoint.style.top = `calc(40% + ${circleY}px - 5px)`;
 		}
 		
 		function updateWristJointPosition() {
@@ -330,8 +342,8 @@
 			var h = 2 * d * Math.sin(((90 + o) / 2) * Math.PI / 180) * Math.sin(w * Math.PI / 180);
 			
 			// Set the position of the wrist joint relative to the center of the forearm
-			wristJoint.style.left = `calc(60% - ${m}px - 15px)`;
-			wristJoint.style.top = `calc(60% - ${h}px - 5px)`;
+			wristJoint.style.left = `calc(70% - ${m}px - 185px)`;
+			wristJoint.style.top = `calc(40% - ${h}px - 5px)`;
 		}
 	
 	
