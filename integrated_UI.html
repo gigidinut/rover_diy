@@ -1,6 +1,6 @@
 <html>
       <head>
-        <title>ESP32-CAM Robot</title>
+        <title>ROVER</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
           body { font-family: Arial; text-align: center; margin:0px auto; padding-top: 30px;}
@@ -156,7 +156,7 @@
       </head>
 <body style="background-color:#D8DBF1;">
     <div id="page1">
-        <h3>Rover v1.0 - UI v1.6</h3>
+        <h3>Rover v1.0 - UI v1.7</h3>
 		<h3>Tracks Control</h3>
         <table>
           <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('forward');" ontouchstart="toggleCheckbox('forward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');"><div class="triangle-up"></div></button></td></tr>
@@ -165,11 +165,10 @@
 		  <tr><td align="center"><button class="button" onmousedown="toggleCheckbox('enable');" ontouchstart="toggleCheckbox('enable');";">ENABLE</div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('stop_rec');" ontouchstart="toggleCheckbox('stop_rec');";">STOP REC</div></button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('disable');" ontouchstart="toggleCheckbox('disable');";">DISABLE</div></button></td></tr>
 		  <tr><td colspan="3" align="center"><button class="button" onclick="showPage('page2');toggleCheckbox('arm_controls');" ontouchstart="showPage('page2');toggleCheckbox('arm_controls');"> ARM CONTROL </button></td></tr>
         </table>
-		<button class="button" onclick="showPage('page1');toggleCheckbox('tracks_control');" ontouchstart="showPage('page1');toggleCheckbox('tracks_control');"> REFRESH</button>
     </div>
 
     <div id="page2" style="display: none">
-        <h3>Rover v1.0 - UI v1.6</h3>
+        <h3>Rover v1.0 - UI v1.7</h3>
 		<h3>Arm Control</h3>
     <div>
         <label for="input1">Shoulder angle:</label>
@@ -223,6 +222,18 @@
 		function updateSlider(sliderId, inputId) {
 			document.getElementById(inputId).value = document.getElementById(sliderId).value;
 		}
+		
+		function sendInput(inputId) {
+            var value = document.getElementById(inputId).value;
+			var inputId = document.getElementById(inputId).name;
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/send-value", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send(inputId + '#' +value);
+			// alert("Sent: " + inputId + " Value: " + value);
+            // TODO: Send value to server using AJAX or form submit.
+            console.log("Input " + inputId + " value: " + value);
+        }
 		
 		// arm control functions
 		
