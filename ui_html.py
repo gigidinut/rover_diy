@@ -202,8 +202,8 @@ def web_page(state,writing):
 			<tr><td align="center">
 			<div>
 				<label for="input4">Claw:</label>
-				<input type="number" id="input4" name="input4" min="0" max="180" value="90" oninput="updateslider('slider4', 'input4')" id="slider4">
-				<input type="range" id="slider4" name="slider4" min="0" max="180" value="90" oninput="updateInput('input4', 'slider4')" onmouseup="sendInput('input4')" ontouchend="sendInput('input4')">
+				<input type="number" id="input4" name="input4" min="0" max="165" value="80" oninput="updateslider('slider4', 'input4')" id="slider4">
+				<input type="range" id="slider4" name="slider4" min="0" max="165" value="80" oninput="updateInput('input4', 'slider4')" onmouseup="sendInput('input4')" ontouchend="sendInput('input4')">
 			</div>
 			</td></tr>
 			<tr><td align="center">
@@ -286,10 +286,10 @@ def web_page(state,writing):
 		}
 		
 		function closeopenclaw(angle) {
-			if (angle < 90) {
-				claw.style.backgroundColor = 'green';
-			} else {
+			if (angle < 82) {
 				claw.style.backgroundColor = 'transparent';
+			} else {
+				claw.style.backgroundColor = 'green';
 			}
 		}
 		
